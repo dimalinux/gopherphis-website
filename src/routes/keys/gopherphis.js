@@ -1,6 +1,6 @@
 'use strict';
 
-const WASM_URL = './gopherphis.wasm';
+const WASM_URL = '/gopherphis.wasm';
 var wasm;
 
 function init() {
@@ -11,6 +11,15 @@ function init() {
             wasm = obj.instance;
             go.run(wasm);
         })
+    } else {
+        fetch(WASM_URL).then(resp =>
+            resp.arrayBuffer()
+        ).then(bytes =>
+            WebAssembly.instantiate(bytes, go.importObject).then(function (obj) {
+                wasm = obj.instance;
+                go.run(wasm);
+            })
+        )
     }
 }
 

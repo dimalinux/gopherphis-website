@@ -1,14 +1,9 @@
-<!-- svelte:head>
-    <script src="./wasm_exec.js" defer></script>
-    <script src="./gopherphis.js" defer></script>
-</svelte:head -->
-
 <script>
     import {} from './wasm_exec.js';
-    import {} from './gopherphis.js';
+    import { submitPhrase } from './gopherphis.js';
 
     function clickHandler() {
-        window.submitPhrase();
+        submitPhrase();
     }
 </script>
 
