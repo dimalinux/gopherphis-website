@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: 'master'
+    branches: "master"
 
 jobs:
   build_site:
@@ -11,13 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-
       # If you're using pnpm, add this step then change the commands and cache key below to use `pnpm`
       # - name: Install pnpm
       #   uses: pnpm/action-setup@v2
       #   with:
       #     version: 8
-
 
       - name: Install Node.js
         uses: actions/setup-node@v3
@@ -30,7 +28,7 @@ jobs:
 
       - name: build
         env:
-          BASE_PATH: '/gopherphis-website'
+          BASE_PATH: "/gopherphis-website"
         run: |
           npm run build
           touch docs/.nojekyll
@@ -39,7 +37,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           # this should match the `pages` option in your adapter-static options
-          path: 'docs/'
+          path: "docs/"
 
   deploy:
     needs: build_site
