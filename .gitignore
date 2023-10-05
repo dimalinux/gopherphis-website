@@ -11,4 +11,6 @@ vite.config.ts.timestamp-*
 /docs/_app
 /docs/*.html
 /docs/*png
-/docs/*wasm
+/docs/*.jpeg
+/docs/*.wasm
+/docs/*.ico
