@@ -4,21 +4,59 @@ package main
 
 import (
 	"encoding/hex"
-	"fmt"
+	"errors"
 	"strings"
 	"syscall/js"
 
 	"github.com/dimalinux/gopherphis/mnemonic"
+	"github.com/dimalinux/gopherphis/polyseed"
 )
+
+type mnemonicType int
+
+const (
+	mnemonicUnknown mnemonicType = iota
+	mnemonicCryptonote
+	mnemonicPolyseed
+
+	selectedValueVarName  = "selectedMnemonic"
+	mnemonicCryptonoteStr = "cryptonote_mnemonic"
+	mnemonicPolyseedStr   = "polyseed_mnemonic"
+)
+
+func getMnemonicType() mnemonicType {
+	mTypeStr := js.Global().Get(selectedValueVarName).String()
+	switch mTypeStr {
+	case mnemonicCryptonoteStr:
+		return mnemonicCryptonote
+	case mnemonicPolyseedStr:
+		return mnemonicPolyseed
+	default:
+		return mnemonicUnknown
+	}
+}
 
 //go:wasm-module gopherphis
 //export updateKeyFromSeeds
 func updateKeyFromSeeds() {
 	phrase := js.Global().Get("document").Call("getElementById", "phrase").Get("value").String()
-	fmt.Printf("Input is %q\n", phrase)
 	seedsSplit := strings.Split(phrase, " ")
-	fmt.Printf("input seeds are %d: %v\n", len(seedsSplit), seedsSplit)
-	key, err := mnemonic.CreateKeyFromSeeds(seedsSplit)
+
+	var key []byte
+	err := errors.New("unknown mnemonic type")
+	mType := getMnemonicType()
+
+	switch mType {
+	case mnemonicCryptonote:
+		key, err = mnemonic.CreateKeyFromSeeds(seedsSplit)
+	case mnemonicPolyseed:
+		var seedData *polyseed.SeedData
+		seedData, err = polyseed.CreateSeedData(seedsSplit)
+		if err == nil {
+			key = seedData.KeyGen()
+		}
+	}
+
 	var keyStr string
 	if err != nil {
 		keyStr = err.Error()

@@ -19,22 +19,24 @@
     "text-gray-700 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent p-0";
 </script>
 
-<Navbar>
-  <NavBrand class="text-2xl font-bold dark:text-yellow-400">
-    <Img
-      width="30"
-      src="{base}/seraphim-gopher.jpeg"
-      alt="Seraphim Gopher"
-      title="Seraphim Gopher"
-    />
-    <span class="pl-2">Gopherphis</span>
-  </NavBrand>
-  <NavHamburger />
-  <NavUl {activeUrl} {activeClass}>
-    <NavLi href="{base}/">Home</NavLi>
-    <NavLi href="{base}/keys">Key Playground</NavLi>
-    <DarkMode class="text-sm p-0" />
-  </NavUl>
+<Navbar let:NavContainer class="bg-primary-200">
+  <NavContainer class="pl-4">
+    <NavBrand class="text-2xl font-bold dark:text-yellow-400">
+      <Img
+        width="30"
+        src="{base}/seraphim-gopher.jpeg"
+        alt="Seraphim Gopher"
+        title="Seraphim Gopher"
+      />
+      <span class="pl-2">Gopherphis</span>
+    </NavBrand>
+    <NavHamburger />
+    <NavUl {activeUrl} {activeClass} {nonActiveClass}>
+      <NavLi href="{base}/">Home</NavLi>
+      <NavLi href="{base}/keys">Key Playground</NavLi>
+      <DarkMode class="text-sm p-0" />
+    </NavUl>
+  </NavContainer>
 </Navbar>
 <slot />
 

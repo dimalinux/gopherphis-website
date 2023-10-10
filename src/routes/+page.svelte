@@ -20,7 +20,9 @@
 
   <SectionHeader>Website</SectionHeader>
   <Paragraph>
-    This website provides a Seraphis <URL href="{base}/keys">key testing page</URL>, inspired by the
+    This website provides a Seraphis <URL href="{base}/keys"
+      >key testing page</URL
+    >, inspired by the
     <URL href="https://xmr.llcoins.net/addresstests.html"
       >Cryptonote key tester</URL
     >, to help other projects when transitioning their code to Seraphis.
@@ -36,8 +38,8 @@
     <URL href={apiDocs} />
   </Paragraph>
   <Paragraph>
-    Website, which generates web assembly from the primary repository for
-    the keys page:<br />
+    Website, which generates web assembly from the primary repository for the
+    keys page:<br />
     <URL href={websiteSources} />
   </Paragraph>
 </div>
